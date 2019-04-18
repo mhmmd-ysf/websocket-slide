@@ -46,7 +46,7 @@
 
 <body>
   <div id="app">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="background-color: aqua;">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false" style="background-color: aqua;">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -78,11 +78,11 @@
           </div>
         </div>
       </div>
-      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" @click.prevent="previousSlide">
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"  @click.prevent="previousSlide"> <!-- data-slide="prev" -->
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" @click.prevent="nextSlide">
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"  @click.prevent="nextSlide"> <!-- data-slide="next" -->
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
@@ -105,12 +105,12 @@
         previousSlide(event) {
           console.log('kiri')
           console.log(event)
-          this.socket.emit('prevSlide', '???')
+          this.socket.emit('prevSlide', 'prev')
         },
         nextSlide(event) {
           console.log('kanan')
           console.log(event)
-          this.socket.emit('nextSlide', '???')
+          this.socket.emit('nextSlide', 'next')
         },
         // introduce() {
         //   this.socket.emit('introduction', this.name)
@@ -122,6 +122,12 @@
         // }
       },
       mounted() {
+        this.socket.on('prevSlide', data => {
+          $('.carousel').carousel('prev')
+        })
+        this.socket.on('nextSlide', data => {
+          $('.carousel').carousel('next')
+        })
         // this.socket.on('newMember', data => {
         //   console.log(`Welcoming ${data}`)
         // })

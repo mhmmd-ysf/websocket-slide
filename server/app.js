@@ -28,6 +28,13 @@ io.on('connection', (socket) => {
 
     io.emit('todoPublished', data)
   })
+
+  socket.on('prevSlide', data => {
+    io.emit('prevSlide', data)
+  })
+  socket.on('nextSlide', data => {
+    io.emit('nextSlide', data)
+  })
 })
 
 
